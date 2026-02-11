@@ -1,5 +1,5 @@
 {
-  "ResourceGroupName": "MATE-AZURE-TASK-5",
+  "ResourceGroupName": "mate-azure-task-5",
   "ManagedBy": null,
   "ManagedByExtended": [],
   "Sku": {
@@ -43,7 +43,7 @@
   },
   "MaxShares": null,
   "ShareInfo": [],
-  "Id": "/subscriptions/1ebd7d31-c3ee-4475-b130-faa4fe9e9209/resourceGroups/MATE-AZURE-TASK-5/providers/Microsoft.Compute/disks/d4vp",
+  "Id": "/subscriptions/1ebd7d31-c3ee-4475-b130-faa4fe9e9209/resourceGroups/mate-azure-task-5/providers/Microsoft.Compute/disks/d4vp",
   "Name": "d4vp",
   "Type": "Microsoft.Compute/disks",
   "Location": "ukwest",
