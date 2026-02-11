@@ -1,3 +1,5 @@
+# Prerequisites: Ensure you are logged in
+# Connect-AzAccount -TenantId <your-tenant-id>
 
 $resourceGroupName = "mate-azure-task-5"
 
@@ -9,17 +11,28 @@ $unattachedDisks = $disks | Where-Object {
 
 $results = @()
 
+$rgPattern = "(?i)mate-azure-task-5"
+
 foreach ($disk in $unattachedDisks) {
     $diskObject = $disk | Select-Object *
 
     $diskObject.ResourceGroupName = $resourceGroupName
 
     if ($diskObject.Id) {
-        $diskObject.Id = $diskObject.Id -replace "MATE-AZURE-TASK-5", "mate-azure-task-5"
+        $diskObject.Id = $diskObject.Id -replace $rgPattern, $resourceGroupName
+    }
+
+    if ($diskObject.CreationData -and $diskObject.CreationData.SourceResourceId) {
+        $diskObject.CreationData.SourceResourceId = $diskObject.CreationData.SourceResourceId -replace $rgPattern, $resourceGroupName
     }
 
     $results += $diskObject
 }
 
 $jsonPath = Join-Path -Path $PSScriptRoot -ChildPath "result.json"
-@($results) | ConvertTo-Json -Depth 5 | Set-Content -Path $jsonPath -Encoding UTF8
+
+if ($results.Count -eq 0) {
+    "[]" | Set-Content -Path $jsonPath -Encoding UTF8
+} else {
+    ConvertTo-Json -InputObject @($results) -Depth 10 | Set-Content -Path $jsonPath -Encoding UTF8
+}
